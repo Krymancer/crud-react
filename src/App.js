@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import ModalForm from './Components/Modals/Modal'
 import DataTable from './Components/Tables/DataTable'
-import { CSVLink } from "react-csv"
+// import { CSVLink } from "react-csv"
+import './App.css'
 
 class App extends Component {
   state = {
@@ -10,9 +11,11 @@ class App extends Component {
   }
 
   getItems(){
-    fetch('http://localhost:3000/crud')
+    fetch('https://api.box3.work/api/Contato/31c46c8c-cba4-445a-8710-cdfa7432efcf/')
       .then(response => response.json())
-      .then(items => this.setState({items}))
+      .then(items => {
+        // console.log(items) 
+        this.setState({items})})
       .catch(err => console.log(err))
   }
 
@@ -59,14 +62,14 @@ class App extends Component {
         </Row>
         <Row>
           <Col>
-            <CSVLink
+            {/* <CSVLink
               filename={"db.csv"}
               color="primary"
               style={{float: "left", marginRight: "10px"}}
               className="btn btn-primary"
               data={this.state.items}>
               Download CSV
-            </CSVLink>
+            </CSVLink> */}
             <ModalForm buttonLabel="Add Item" addItemToState={this.addItemToState}/>
           </Col>
         </Row>

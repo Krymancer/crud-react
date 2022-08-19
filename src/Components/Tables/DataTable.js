@@ -5,15 +5,16 @@ import ModalForm from '../Modals/Modal'
 class DataTable extends Component {
 
   deleteItem = id => {
-    let confirmDelete = window.confirm('Delete item forever?')
+    let confirmDelete = window.confirm('Deletar item para sempre?')
+    
     if(confirmDelete){
-      fetch('http://localhost:3000/crud', {
-      method: 'delete',
+      fetch('https://api.box3.work/api/Contato/31c46c8c-cba4-445a-8710-cdfa7432efcf/' + id, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id
+        "id": id 
       })
     })
       .then(response => response.json())
@@ -31,12 +32,11 @@ class DataTable extends Component {
       return (
         <tr key={item.id}>
           <th scope="row">{item.id}</th>
-          <td>{item.first}</td>
-          <td>{item.last}</td>
+          <td>{item.nome}</td>
           <td>{item.email}</td>
-          <td>{item.phone}</td>
-          <td>{item.location}</td>
-          <td>{item.hobby}</td>
+          <td>{item.telefone}</td>
+          <td>{item.ativo? 'Ativo': 'Inativo'}</td>
+          <td>{item.dataNascimento.substring(0, 10).split('-').reverse().join('/')}</td>
           <td>
             <div style={{width:"110px"}}>
               <ModalForm buttonLabel="Edit" item={item} updateState={this.props.updateState}/>
@@ -53,13 +53,12 @@ class DataTable extends Component {
         <thead>
           <tr>
             <th>ID</th>
-            <th>First</th>
-            <th>Last</th>
+            <th>Nome</th>
             <th>Email</th>
-            <th>Phone</th>
-            <th>Location</th>
-            <th>Hobby</th>
-            <th>Actions</th>
+            <th>Telefone</th>
+            <th>Status</th>
+            <th>Data de Nascimento</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>

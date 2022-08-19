@@ -1,75 +1,76 @@
 import React from 'react';
+import InputMask from 'react-input-mask'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class AddEditForm extends React.Component {
   state = {
-    id: 0,
-    first: '',
-    last: '',
+    nome: '',
     email: '',
-    phone: '',
-    location: '',
-    hobby: ''
+    telefone: '',
+    ativo: true,
+    dataNascimento: ''
   }
 
   onChange = e => {
-    this.setState({[e.target.name]: e.target.value})
+    // console.log(e.target.value)
+    if (e.target.name === 'ativo'){
+      return this.setState({[e.target.name]: e.target.checked})
+    }
+    return this.setState({[e.target.name]: e.target.value})
   }
 
   submitFormAdd = e => {
     e.preventDefault()
-    fetch('http://localhost:3000/crud', {
-      method: 'post',
+
+    const infos = {
+      "nome": this.state.nome,
+      "telefone": this.state.telefone,
+      "email": this.state.email,
+      "ativo": this.state.ativo,
+      "dataNascimento": this.state.dataNascimento
+    }
+
+    fetch('https://api.box3.work/api/Contato/31c46c8c-cba4-445a-8710-cdfa7432efcf', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        first: this.state.first,
-        last: this.state.last,
-        email: this.state.email,
-        phone: this.state.phone,
-        location: this.state.location,
-        hobby: this.state.hobby
-      })
+      body: JSON.stringify(infos)
     })
       .then(response => response.json())
       .then(item => {
-        if(Array.isArray(item)) {
-          this.props.addItemToState(item[0])
-          this.props.toggle()
-        } else {
-          console.log('failure')
-        }
+        this.props.addItemToState(item)
+        this.props.toggle()
       })
       .catch(err => console.log(err))
+
   }
 
   submitFormEdit = e => {
     e.preventDefault()
-    fetch('http://localhost:3000/crud', {
-      method: 'put',
+    fetch('https://api.box3.work/api/Contato/31c46c8c-cba4-445a-8710-cdfa7432efcf/' + this.state.id, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id: this.state.id,
-        first: this.state.first,
-        last: this.state.last,
+        nome: this.state.nome,
         email: this.state.email,
-        phone: this.state.phone,
-        location: this.state.location,
-        hobby: this.state.hobby
+        telefone: this.state.telefone,
+        ativo: this.state.ativo,
+        dataNascimento: this.state.dataNascimento
       })
     })
       .then(response => response.json())
       .then(item => {
-        if(Array.isArray(item)) {
-          // console.log(item[0])
-          this.props.updateState(item[0])
-          this.props.toggle()
-        } else {
-          console.log('failure')
-        }
+        this.props.updateState(item)
+        this.props.toggle()
+        // if(Array.isArray(item)) {
+        //   this.props.updateState(item[0])
+        //   this.props.toggle()
+        // } else {
+        //   console.log('failure')
+        // }
       })
       .catch(err => console.log(err))
   }
@@ -77,8 +78,8 @@ class AddEditForm extends React.Component {
   componentDidMount(){
     // if item exists, populate the state with proper data
     if(this.props.item){
-      const { id, first, last, email, phone, location, hobby } = this.props.item
-      this.setState({ id, first, last, email, phone, location, hobby })
+      const { id, nome, email, telefone, ativo, dataNascimento } = this.props.item
+      this.setState({ id, nome, email, telefone, ativo, dataNascimento })
     }
   }
 
@@ -86,28 +87,24 @@ class AddEditForm extends React.Component {
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <FormGroup>
-          <Label for="first">First Name</Label>
-          <Input type="text" name="first" id="first" onChange={this.onChange} value={this.state.first === null ? '' : this.state.first} />
-        </FormGroup>
-        <FormGroup>
-          <Label for="last">Last Name</Label>
-          <Input type="text" name="last" id="last" onChange={this.onChange} value={this.state.last === null ? '' : this.state.last}  />
+          <Label for="nome">Nome</Label>
+          <Input type="text" name="nome" id="nome" onChange={this.onChange} value={this.state.nome === null ? '' : this.state.nome} />
         </FormGroup>
         <FormGroup>
           <Label for="email">Email</Label>
           <Input type="email" name="email" id="email" onChange={this.onChange} value={this.state.email === null ? '' : this.state.email}  />
         </FormGroup>
         <FormGroup>
-          <Label for="phone">Phone</Label>
-          <Input type="text" name="phone" id="phone" onChange={this.onChange} value={this.state.phone === null ? '' : this.state.phone}  placeholder="ex. 555-555-5555" />
+          <Label for="telefone">Telefone</Label>
+          <Input tag={InputMask} mask="(99)99999-9999" type="text" name="telefone" id="telefone" onChange={this.onChange} value={this.state.telefone === null ? '' : this.state.telefone}  placeholder="ex. (00)00000-0000" />
         </FormGroup>
         <FormGroup>
-          <Label for="location">Location</Label>
-          <Input type="text" name="location" id="location" onChange={this.onChange} value={this.state.location === null ? '' : this.state.location}  placeholder="City, State" />
+          <Label for="ativo">Ativo:</Label>
+          <Input type="checkbox" name="ativo" id="ativo" onChange={this.onChange} checked={this.state.ativo} />
         </FormGroup>
         <FormGroup>
-          <Label for="hobby">Hobby</Label>
-          <Input type="text" name="hobby" id="hobby" onChange={this.onChange} value={this.state.hobby}  />
+          <Label for="dataNascimento">Data de nascimento</Label>
+          <Input type="date" name="dataNascimento" id="dataNascimento" onChange={this.onChange} value={this.state.dataNascimento === null? '' :this.state.dataNascimento.substring(0, 10)}  />
         </FormGroup>
         <Button>Submit</Button>
       </Form>
