@@ -38,10 +38,17 @@ class DataTable extends Component {
           <td>{item.ativo? 'Ativo': 'Inativo'}</td>
           <td>{item.dataNascimento.substring(0, 10).split('-').reverse().join('/')}</td>
           <td>
-            <div style={{width:"110px"}}>
-              <ModalForm buttonLabel="Edit" item={item} updateState={this.props.updateState}/>
+            <div style={{width:"160px", paddingBottom:"5px"}}>
+              <ModalForm buttonLabel="Editar" item={item} updateState={this.props.updateState} tipo="AddEdit"/>
               {' '}
-              <Button color="danger" onClick={() => this.deleteItem(item.id)}>Del</Button>
+              <Button color="danger" onClick={() => this.deleteItem(item.id)}>Deletar</Button>
+            </div>
+            <div>
+              <ModalForm buttonLabel="Chamada" item={item} tipo='Chamada'/>
+              {' '}          
+              <ModalForm buttonLabel="Historico" item={item} tipo='Historico'/>
+              {' '}          
+              
             </div>
           </td>
         </tr>

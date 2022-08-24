@@ -65,12 +65,6 @@ class AddEditForm extends React.Component {
       .then(item => {
         this.props.updateState(item)
         this.props.toggle()
-        // if(Array.isArray(item)) {
-        //   this.props.updateState(item[0])
-        //   this.props.toggle()
-        // } else {
-        //   console.log('failure')
-        // }
       })
       .catch(err => console.log(err))
   }
@@ -106,7 +100,7 @@ class AddEditForm extends React.Component {
           <Label for="dataNascimento">Data de nascimento</Label>
           <Input type="date" name="dataNascimento" id="dataNascimento" onChange={this.onChange} value={this.state.dataNascimento === null? '' :this.state.dataNascimento.substring(0, 10)}  />
         </FormGroup>
-        <Button>Submit</Button>
+        <Button>Enviar</Button>
       </Form>
     );
   }

@@ -49,28 +49,14 @@ class App extends Component {
 
   render() {
     return (
-      <Container className="App">
-        <Row>
-          <Col>
-            <h1 style={{margin: "20px 0"}}>CRUD Database</h1>
-          </Col>
+      <Container className="App ">
+        <Row className="header">
+          <h1 style={{margin: "20px 0"}}>Contatos</h1>
+          <ModalForm buttonLabel="Cadastrar" id="botao-cadastrar" addItemToState={this.addItemToState} tipo="AddEdit"/>
         </Row>
         <Row>
           <Col>
             <DataTable items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            {/* <CSVLink
-              filename={"db.csv"}
-              color="primary"
-              style={{float: "left", marginRight: "10px"}}
-              className="btn btn-primary"
-              data={this.state.items}>
-              Download CSV
-            </CSVLink> */}
-            <ModalForm buttonLabel="Add Item" addItemToState={this.addItemToState}/>
           </Col>
         </Row>
       </Container>
