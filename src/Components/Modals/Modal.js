@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
 import AddEditForm from '../Forms/FormAddEdit'
 import ChamadaForm from '../Chamada/Chamada'
-import HistoricoChamada from '../Chamada/HIstorico'
+import HistoricoChamada from '../Chamada/Historico'
 
 class ModalForm extends Component {
   constructor(props) {
@@ -78,7 +78,7 @@ class ModalForm extends Component {
                   style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
       } else if(label === 'Historico') {
-        title = 'Historico'
+        title = 'Historico ' + this.props.item.nome
         button = <Button
                   color="secondary"
                   onClick={this.toggle}
