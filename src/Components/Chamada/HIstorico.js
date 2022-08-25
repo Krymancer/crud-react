@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import { Table } from 'reactstrap';
 
 const Historico = ({item, toggle}) => {
 
@@ -16,12 +17,26 @@ const Historico = ({item, toggle}) => {
         // console.log(e)
         return (
             <tr key={e.id}>
-                <td>{e.id}</td>
                 <td>{formatar(e.inicioAtendimento)}</td>
                 <td>{formatar(e.fimAtendimento)}</td>
                 <td>{e.assunto}</td>
             </tr>
         )
+    })
+
+    useEffect(() => {
+        fetch('https://api.box3.work/api/Telefone/31c46c8c-cba4-445a-8710-cdfa7432efcf/chamada-em-andamento')
+        .then(resp => {
+            if (resp.status === 200) {
+                return resp.json()
+            } else {
+                throw new Error (resp.status)
+            }
+        })
+        .then(data => {
+            console.log(data)
+        })
+        .catch(err => console.log('Catch: ', err))
     })
 
     useEffect(() => {
@@ -35,10 +50,9 @@ const Historico = ({item, toggle}) => {
     }, [])
 
     return (
-        <table>
+        <Table responsive hover>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Inicio</th>
                     <th>Fim</th>
                     <th>Assunto</th>
@@ -47,7 +61,7 @@ const Historico = ({item, toggle}) => {
             <tbody>
                 {infos}
             </tbody>
-        </table>
+        </Table>
     )
 }
 

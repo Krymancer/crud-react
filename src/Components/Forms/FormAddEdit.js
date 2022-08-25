@@ -63,6 +63,7 @@ class AddEditForm extends React.Component {
     })
       .then(response => response.json())
       .then(item => {
+        console.log(item)
         this.props.updateState(item)
         this.props.toggle()
       })
