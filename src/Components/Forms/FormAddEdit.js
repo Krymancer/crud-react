@@ -82,25 +82,25 @@ const AddEditForm = ({item, updateState, addItemToState}) => {
 
     return (
         <form onSubmit={item ? submitFormEdit : submitFormAdd} className="flex flex-col gap-5 w-full p-5">
-            <div className="flex flex-row justify-between">
-                <label htmlFor="name">Nome</label>
-                <input className="bg-gray-100 border-b border-black" id="name" type="text" name="name" onChange={onChange} value={name === null ? '' : name}></input>
+            <div>
+                <label htmlFor="name" className='block mb-2 text-sm font-medium text-gray-900'>Nome</label>
+                <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " id="name" type="text" name="name" onChange={onChange} value={name === null ? '' : name}></input>
             </div>
-            <div className="flex flex-row justify-between">
-                <label htmlFor="email">Email</label>
-                <input className="bg-gray-100 border-b border-black" id="email" type="email" name="email" onChange={onChange} value={email === null ? '' : email}></input>
+            <div>
+                <label htmlFor="email" className='block mb-2 text-sm font-medium text-gray-900'>Email</label>
+                <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " id="email" type="email" name="email" onChange={onChange} value={email === null ? '' : email}></input>
             </div>
-            <div className="flex flex-row justify-between">
-                <label htmlFor="phone">Telefone</label>
-                <InputMask id="phone" className="bg-gray-100 border-b border-black"mask="(99) 99999-9999" maskChar=" " onChange={onChange} value={phone === null ? '' : phone}></InputMask>
+            <div>
+                <label htmlFor="phone" className='block mb-2 text-sm font-medium text-gray-900'>Telefone</label>
+                <InputMask id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "mask="(99) 99999-9999" maskChar=" " onChange={onChange} value={phone === null ? '' : phone}></InputMask>
             </div>
-            <div className="flex flex-row justify-between">
-                <label htmlFor="active">Ativo</label>
-                <input className="bg-gray-100 border-b border-black" id="active" type="checkbox" name="active" onChange={onChange} checked={active}></input>
+            <div>
+                <label htmlFor="active" className='block mb-2 text-sm font-medium text-gray-900'>Ativo</label>
+                <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " id="active" type="checkbox" name="active" onChange={onChange} checked={active}></input>
             </div>
-            <div className="flex flex-row justify-between">
-                <label htmlFor="birthday">Data de nascimento</label>
-                <input className="bg-gray-100 border-b border-black" id="birthday" type="date" name="birthday" onChange={onChange} value={birthday === null ? '' : birthday}></input>
+            <div>
+                <label htmlFor="birthday" className='block mb-2 text-sm font-medium text-gray-900'>Data de nascimento</label>
+                <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " id="birthday" type="date" name="birthday" onChange={onChange} value={birthday === null ? '' : birthday}></input>
             </div>
             <button className="bg-primary rounded-[6px] py-2 text-white">Enviar</button>
         </form>
