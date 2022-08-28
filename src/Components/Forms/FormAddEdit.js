@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import InputMask from 'react-input-mask';
+import Button from '../Buttons/Button';
 
 const AddEditForm = ({item, updateState, addItemToState}) => {
     const [name, setName] = useState(item? item.nome : '');
@@ -102,7 +103,10 @@ const AddEditForm = ({item, updateState, addItemToState}) => {
                 <label htmlFor="birthday" className='block mb-2 text-sm font-medium text-gray-900'>Data de nascimento</label>
                 <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " id="birthday" type="date" name="birthday" onChange={onChange} value={birthday === null ? '' : birthday}></input>
             </div>
-            <button className="bg-primary rounded-[6px] py-2 text-white">Enviar</button>
+            <div className="flex items-center p-6 pb-0 space-x-2 rounded-b border-t border-gray-200 justify-end">
+                <Button label={'Enviar'} />
+                <Button onClick={() => toggle()} label={'Cancelar'} type={'Deletar'} />
+            </div>
         </form>
 
     );

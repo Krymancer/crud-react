@@ -31,8 +31,8 @@ const App = () =>{
 
     return (
         <div className="mx-auto max-w-[1320px]">
-            <div className="flex justify-between flex-row my-[20px] gap-[20px]">
-                <div className='text-4xl font-bold'>Contatos</div>
+            <div className="flex justify-between flex-row my-[20px] gap-[20px] items-center">
+                <div className='text-4xl font-bold uppercase'>Contatos</div>
                 <ModalForm buttonLabel="Cadastrar" id="botao-cadastrar" addItemToState={addItemToState} type="AddEdit"/>
             </div>
             <div>

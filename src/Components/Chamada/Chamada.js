@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
+import Button from '../Buttons/Button';
+
 const Chamada = ({item, toggle}) => {
     const [tempo, setTempo] = useState([0, 0, 0]);
     const [estadoChamada, setEstadoChamada] = useState(true);
@@ -59,7 +61,9 @@ const Chamada = ({item, toggle}) => {
             <>
                 <p>Ligando para {item.nome}</p>
                 <p>Duração: {tempo.map((t) => t.toString().padStart(2, '0')).join(':')}</p>
-                <button onClick={() => encerrarContagem()}>Encerrar</button>
+                <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 justify-end">
+                    <Button onClick={encerrarContagem} label={'Encerrar Chamada'} />
+                </div>
             </>
         );
     };
@@ -74,7 +78,10 @@ const Chamada = ({item, toggle}) => {
                     name="assunto"
                     onChange={handleChange}
                 ></textarea>
-                <button onClick={encerrarChamada}>Finalizar</button>
+                <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 justify-end">
+                    <Button onClick={encerrarChamada} label={'Encerrar Chamada'} />
+                </div>
+
             </>
         );
     };

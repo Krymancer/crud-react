@@ -40,9 +40,7 @@ const DataTable = ({items, updateState, deleteItemFromState}) => {
                         <td className='py-3 px-6'>{item.dataNascimento.substring(0, 10).split('-').reverse().join('/')}</td>
                         <td className='py-3 px-6 flex'>
                             <ModalForm buttonLabel="Editar" item={item} updateState={updateState} type="AddEdit"/>
-                            <button
-                                className="rounded-[6px] py-[6px] px-[12px] float-right mr-[10px] bg-danger text-white"
-                                onClick={() => deleteItem(item.id)}>Deletar</button>
+                            <ModalForm buttonLabel="Deletar" item={item} updateState={updateState} deleteItem={deleteItem} type="Deletar"/>
                             <ModalForm buttonLabel="Chamada" item={item} type='Chamada'/>
                             <ModalForm buttonLabel="Historico" item={item} type='Historico'/>
                         </td>
