@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.3.1",
-    "react": "^16.8.5",
-    "react-csv": "^1.1.1",
-    "react-dom": "^16.8.5",
+    "autoprefixer": "^10.4.8",
+    "bootstrap": "^5.2.0",
+    "postcss": "^8.4.16",
+    "react": "^18.2.0",
+    "react-csv": "^2.2.2",
+    "react-dom": "^18.2.0",
     "react-input-mask": "^2.0.4",
-    "react-scripts": "2.1.8",
-    "reactstrap": "^7.1.0"
+    "react-scripts": "5.0.1",
+    "reactstrap": "^9.1.4",
+    "tailwindcss": "^3.1.8"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -17,13 +20,21 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "devDependencies": {
+    "eslint": ">=5.16.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.31.1"
+  }
 }

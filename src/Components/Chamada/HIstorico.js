@@ -1,68 +1,54 @@
-import React, {useEffect, useState} from 'react'
-import { Table } from 'reactstrap';
+import React, {useEffect, useState} from 'react';
+
+import useFetch from '../../hooks/useFetch';
 
 const Historico = ({item, toggle}) => {
+    const [info, setInfo] = useState([]);
 
-    const [info, setInfo] = useState([])
-
-    const infos = info.map((e) => {
-
-        const formatar = (valor) => {
-            let aux = valor.split('T')
-            aux[0] = aux[0].split('-').reverse().join('/')
-            aux[1] = aux[1].substring(0, 7)
-            return aux.join(' ')
+    const formatar = (valor) => {
+        if (valor) {
+            const aux = valor.split('T');
+            aux[0] = aux[0].split('-').reverse().join('/');
+            aux[1] = aux[1].substring(0, 7);
+            return aux.join(' ');
+        } else {
+            return '-';
         }
-
-        // console.log(e)
-        return (
-            <tr key={e.id}>
-                <td>{formatar(e.inicioAtendimento)}</td>
-                <td>{formatar(e.fimAtendimento)}</td>
-                <td>{e.assunto}</td>
-            </tr>
-        )
-    })
+    };
 
     useEffect(() => {
-        fetch('https://api.box3.work/api/Telefone/31c46c8c-cba4-445a-8710-cdfa7432efcf/chamada-em-andamento')
-        .then(resp => {
-            if (resp.status === 200) {
-                return resp.json()
-            } else {
-                throw new Error (resp.status)
-            }
-        })
-        .then(data => {
-            console.log(data)
-        })
-        .catch(err => console.log('Catch: ', err))
-    })
+        const fetchInfo = async () => {
+            const response = await useFetch('https://api.box3.work/api/Telefone/31c46c8c-cba4-445a-8710-cdfa7432efcf/contato/' + item.id);
+            const data = await response.json();
+            console.log(data);
+            setInfo(data);
+        };
 
-    useEffect(() => {
-        fetch('https://api.box3.work/api/Telefone/31c46c8c-cba4-445a-8710-cdfa7432efcf/contato/' + item.id)
-        .then(resp => resp.json())
-        .then(data => {
-            console.log(data)
-            setInfo(data)
-        })
-        .catch(err => console.log(err))
-    }, [])
+        fetchInfo();
+    }, []);
 
     return (
-        <Table responsive hover>
-            <thead>
+        <table>
+            <thead className='uppercase'>
                 <tr>
-                    <th>Inicio</th>
-                    <th>Fim</th>
-                    <th>Assunto</th>
+                    <th className='py-3 px-6'>Inicio</th>
+                    <th className='py-3 px-6'>Fim</th>
+                    <th className='py-3 px-6'>Assunto</th>
                 </tr>
             </thead>
-            <tbody>
-                {infos}
+            <tbody className="bg-white border-b ">
+                {
+                    info.map((e) => (
+                        <tr key={e.id} className="bg-white border-b">
+                            <td className='py-3 px-6 text-center'>{formatar(e.inicioAtendimento)}</td>
+                            <td className='py-3 px-6 text-center'>{formatar(e.fimAtendimento)}</td>
+                            <td className='py-3 px-6 text-center'>{e.assunto}</td>
+                        </tr>
+                    ))
+                }
             </tbody>
-        </Table>
-    )
-}
+        </table>
+    );
+};
 
-export default Historico
+export default Historico;
