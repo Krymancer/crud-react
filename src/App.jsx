@@ -25,10 +25,13 @@ const App = () =>{
         setItems((prevState) => prevState.filter((t) => t.id !== id));
     };
 
-    useEffect(async () => {
-        const response = await useFetch(`${baseUrl}Contato/${apiKey}/`);
-        const data = await response.json();
-        setItems(data);
+    useEffect(() => {
+        async function fetchData() {
+            const response = await useFetch(`${baseUrl}Contato/${apiKey}`);
+            const data = await response.json();
+            setItems(data);
+        }
+        fetchData();
     }, []);
 
     return (

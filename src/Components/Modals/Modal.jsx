@@ -34,7 +34,7 @@ const ModalForm = ({item, updateState, addItemToState, type, buttonLabel, delete
             case 'AddEdit':
                 return <AddEditForm item={item} updateState={updateState} />;
             case 'Chamada':
-                return <ChamadaForm item={item} toggle={toggle} />;
+                return <ChamadaForm item={item} toggle={toggle} modalOpen={modalVisible}/>;
             case 'Historico':
                 return <HistoricoChamada item={item} toggle={toggle} />;
             case 'Cadastrar':

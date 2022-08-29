@@ -6,9 +6,9 @@ import useFetch from '../../hooks/useFetch';
 
 import {baseUrl, apiKey} from '../../api/constants';
 
-const Chamada = ({item, toggle}) => {
+const Chamada = ({item, toggle, modalOpen}) => {
     const [tempo, setTempo] = useState(0);
-    const [callStatus, setCallStatus] = useState(true);
+    const [callStatus, setCallStatus] = useState(false);
     const [assunto, setAssunto] = useState('');
     const [idLigacao, setIdLigacao] = useState(0);
 
@@ -20,6 +20,7 @@ const Chamada = ({item, toggle}) => {
         const response = await useFetch(`${baseUrl}Telefone/${apiKey}/`, {idContato: item.id}, {method: 'POST'});
         const data = await response.json();
         setIdLigacao(data.id);
+        setCallStatus(true);
     };
 
     const endCall = async () => {
@@ -76,8 +77,12 @@ const Chamada = ({item, toggle}) => {
     };
 
     useEffect(() => {
-        startCall();
-    }, []);
+        console.log('Chamada render', modalOpen);
+        if (modalOpen) {
+            console.log('Chamada start');
+            startCall();
+        }
+    }, [modalOpen]);
 
     useEffect(() => {
         if (callStatus) {

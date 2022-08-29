@@ -12,13 +12,13 @@ const Historico = ({item, toggle}) => {
     };
 
     useEffect(() => {
-        const fetchInfo = async () => {
+        async function fetchData() {
             const response = await useFetch(`${baseUrl}Telefone/${apiKey}/contato/${item.id}`);
             const data = await response.json();
             setInfo(data);
-        };
+        }
 
-        fetchInfo();
+        fetchData();
     }, []);
 
     return (
