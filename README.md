@@ -2,7 +2,7 @@
 
 Trying to challenge myself and refactor this project.
 
-![image](https://github.com/krymancer/crud-react/blob/.assets/main.png)
+![image](https://raw.githubusercontent.com/Krymancer/crud-react/main/.assets/main.png)
 
 ~~It uses Bootstrap styles and reactstrap, which creates Bootstrap components, to create a responsive data table that displays all data from a table in a database. It has a modal form for adding and editing items, a delete and edit button in each item row.~~
 
