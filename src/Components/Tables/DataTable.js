@@ -3,13 +3,15 @@ import ModalForm from '../Modals/Modal';
 
 import useFetch from '../../hooks/useFetch';
 
+import {baseUrl, apiKey} from '../../api/constants';
+
 const DataTable = ({items, updateState, deleteItemFromState}) => {
     const deleteItem = (id) => {
         const confirmDelete = window.confirm('Deletar item para sempre?');
 
         if (confirmDelete) {
             const fetchInfo = async () => {
-                await useFetch('https://api.box3.work/api/Contato/31c46c8c-cba4-445a-8710-cdfa7432efcf/' + id, {id}, {method: 'DELETE'});
+                await useFetch(`${baseUrl}Contato/${apiKey}/${id}`, {id}, {method: 'DELETE'});
                 deleteItemFromState(id);
             };
             fetchInfo();

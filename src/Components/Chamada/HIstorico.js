@@ -2,25 +2,19 @@ import React, {useEffect, useState} from 'react';
 
 import useFetch from '../../hooks/useFetch';
 
+import {baseUrl, apiKey} from '../../api/constants';
+
 const Historico = ({item, toggle}) => {
     const [info, setInfo] = useState([]);
 
-    const formatar = (valor) => {
-        if (valor) {
-            const aux = valor.split('T');
-            aux[0] = aux[0].split('-').reverse().join('/');
-            aux[1] = aux[1].substring(0, 7);
-            return aux.join(' ');
-        } else {
-            return '-';
-        }
+    const toDate = (dateString) => {
+        return new Date(dateString).toLocaleString('pt-BR', {day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'});
     };
 
     useEffect(() => {
         const fetchInfo = async () => {
-            const response = await useFetch('https://api.box3.work/api/Telefone/31c46c8c-cba4-445a-8710-cdfa7432efcf/contato/' + item.id);
+            const response = await useFetch(`${baseUrl}Telefone/${apiKey}/contato/${item.id}`);
             const data = await response.json();
-            console.log(data);
             setInfo(data);
         };
 
@@ -40,8 +34,8 @@ const Historico = ({item, toggle}) => {
                 {
                     info.map((e) => (
                         <tr key={e.id} className="bg-white border-b">
-                            <td className='py-3 px-6 text-center'>{formatar(e.inicioAtendimento)}</td>
-                            <td className='py-3 px-6 text-center'>{formatar(e.fimAtendimento)}</td>
+                            <td className='py-3 px-6 text-center'>{toDate(e.inicioAtendimento)}</td>
+                            <td className='py-3 px-6 text-center'>{toDate(e.fimAtendimento)}</td>
                             <td className='py-3 px-6 text-center'>{e.assunto}</td>
                         </tr>
                     ))

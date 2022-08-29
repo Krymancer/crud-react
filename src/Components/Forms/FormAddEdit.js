@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import InputMask from 'react-input-mask';
 import Button from '../Buttons/Button';
 
+import useFetch from '../../hooks/useFetch';
+
+import {baseUrl, apiKey} from '../../api/constants';
+
 const AddEditForm = ({item, updateState, addItemToState}) => {
     const [name, setName] = useState(item? item.nome : '');
     const [phone, setPhone] = useState(item? item.telefone : '');
@@ -11,7 +15,6 @@ const AddEditForm = ({item, updateState, addItemToState}) => {
 
     const onChange = (e) => {
         const {id, value} = e.target;
-        console.log(value, id, e.target );
         switch (id) {
             case 'name':
                 setName(value);
@@ -31,7 +34,7 @@ const AddEditForm = ({item, updateState, addItemToState}) => {
         }
     };
 
-    const submitFormAdd = (e) => {
+    const submitFormAdd = async (e) => {
         e.preventDefault();
 
         const infos = {
@@ -42,43 +45,26 @@ const AddEditForm = ({item, updateState, addItemToState}) => {
             'dataNascimento': birthday,
         };
 
-        fetch('https://api.box3.work/api/Contato/31c46c8c-cba4-445a-8710-cdfa7432efcf', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(infos),
-        })
-            .then((response) => response.json())
-            .then((item) => {
-                addItemToState(item);
-                toggle();
-            })
-            .catch((err) => console.log(err));
+        const response = await useFetch(`${baseUrl}Contato/${apiKey}`, {infos: infos}, {method: 'POST'});
+        const data = await response.json();
+        addItemToState(data);
     };
 
-    const submitFormEdit = (e) => {
+    const submitFormEdit = async (e) => {
         e.preventDefault();
-        fetch('https://api.box3.work/api/Contato/31c46c8c-cba4-445a-8710-cdfa7432efcf/' + item.id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                nome: name,
-                email: email,
-                telefone: phone,
-                ativo: active,
-                dataNascimento: birthday,
-            }),
-        })
-            .then((response) => response.json())
-            .then((item) => {
-                console.log(item);
-                updateState(item);
-                toggle();
-            })
-            .catch((err) => console.log(err));
+
+        const infos = {
+            'nome': name,
+            'telefone': phone,
+            'email': email,
+            'ativo': active,
+            'dataNascimento': birthday,
+        };
+
+        const response = await useFetch(`${baseUrl}Contato/${apiKey}/${item.id}`, {infos: infos}, {method: 'PUT'});
+        const data = await response.json();
+        updateState(data);
+        toggle();
     };
 
     return (

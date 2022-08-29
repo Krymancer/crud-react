@@ -5,6 +5,8 @@ import DataTable from './Components/Tables/DataTable';
 
 import useFetch from './hooks/useFetch';
 
+import {baseUrl, apiKey} from './api/constants';
+
 const App = () =>{
     const [items, setItems] = useState([]);
 
@@ -24,7 +26,7 @@ const App = () =>{
     };
 
     useEffect(async () => {
-        const response = await useFetch('https://api.box3.work/api/Contato/31c46c8c-cba4-445a-8710-cdfa7432efcf/');
+        const response = await useFetch(`${baseUrl}Contato/${apiKey}/`);
         const data = await response.json();
         setItems(data);
     }, []);
